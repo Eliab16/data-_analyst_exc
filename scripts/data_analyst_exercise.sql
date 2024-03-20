@@ -81,9 +81,34 @@ FROM data_analyst_jobs
 WHERE LOWER(title) NOT LIKE '%analyst%' OR LOWER(title) NOT LIKE '%analytics%';
 
 
+
 SELECT COUNT(DISTINCT(title))
 FROM data_analyst_jobs
 WHERE LOWER(title) NOT LIKE '%analyst%' OR LOWER(title) NOT LIKE '%analytics%';
+
+You want to understand which jobs requiring SQL are hard to fill. 
+Find the number of jobs by industry (domain) that require SQL and have been posted longer than 3 weeks. 
+ -
+select domain, 
+count(domain)
+FROM data_analyst_jobs
+WHERE domain IS NOT NULL 
+AND days_since_posting >21
+AND skill ILIKE '%SQL%'
+group by domain
+order by count(domain) DESC
+LIMIT 4;
+
+
+SELECT domain,
+	   COUNT(domain)
+FROM data_analyst_jobs
+WHERE domain IS NOT NULL
+	AND skill ILIKE '%SQL%'
+	AND days_since_posting > 21
+GROUP BY domain
+ORDER BY COUNT(domain) DESC;
+
 
 
 
