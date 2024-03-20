@@ -52,10 +52,40 @@ WHERE location ='CA';
 -- How many companies are there with more that 5000 reviews across all locations?
 
 
-select company,ROUND(avg(review_count),2)
+select company,ROUND(avg(start_rating),2)
 FROM data_analyst_jobs
 WHERE company IS NOT NULL AND review_count > 5000
 group by company;
+
+
+-- Add the code to order the query in #9 from highest to lowest average star rating.
+-- Which company with more than 5000 reviews across all locations in the dataset has the highest star rating? What is that rating?
+
+select company,ROUND(avg(start_rating),2) as avg_rating
+FROM data_analyst_jobs
+WHERE company IS NOT NULL AND review_count > 5000
+group by company
+order by avg_rating DESC;
+
+-- Find all the job titles that contain the word ‘Analyst’. 
+-- How many different job titles are there
+
+SELECT COUNT(DISTINCT(title))
+FROM data_analyst_jobs
+WHERE LOWER(title) LIKE '%analyst%';
+
+-- How many different job titles do not contain either the word ‘Analyst’ or the word ‘Analytics’? What word do these positions have in common?
+
+SELECT DISTINCT (title)
+FROM data_analyst_jobs
+WHERE LOWER(title) NOT LIKE '%analyst%' OR LOWER(title) NOT LIKE '%analytics%';
+
+
+SELECT COUNT(DISTINCT(title))
+FROM data_analyst_jobs
+WHERE LOWER(title) NOT LIKE '%analyst%' OR LOWER(title) NOT LIKE '%analytics%';
+
+
 
 
 
